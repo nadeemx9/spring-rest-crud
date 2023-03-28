@@ -1,5 +1,6 @@
 package com.restcrud.service;
 
+import com.restcrud.exception.StudentAlreadyExistException;
 import com.restcrud.exception.StudentNotFoundException;
 import com.restcrud.model.Student;
 import com.restcrud.repository.StudentRepository;
@@ -16,13 +17,15 @@ public class StudentServiceImpl implements StudentService {
 
     public Student addStudent(Student student)
     {
+        if(studentRepository.findById(student.getRollno()).isPresent())
+            throw new StudentAlreadyExistException("Student with Rollno '"+student.getRollno()+"' Already Exist!");
         return studentRepository.save(student);
     }
 
     public Student getStudent(int id)
     {
         if(studentRepository.findById(id).isEmpty())
-            throw new StudentNotFoundException("Student with ID : '"+id+"' not found!");
+            throw new StudentNotFoundException("Student with Rollno : '"+id+"' not found!");
         return studentRepository.findById(id).get();
     }
 
