@@ -1,12 +1,9 @@
 package com.restcrud.controller;
 
 import com.restcrud.model.Student;
-import com.restcrud.service.StudentService;
-import lombok.Data;
+import com.restcrud.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 
@@ -15,7 +12,7 @@ import java.util.List;
 public class MyController {
 
     @Autowired
-    private StudentService studentService;
+    private StudentServiceImpl studentService;
 
     @PostMapping
     public String addStudent(@RequestBody Student student)
