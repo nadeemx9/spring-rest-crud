@@ -3,6 +3,8 @@ package com.restcrud.controller;
 import com.restcrud.model.Student;
 import com.restcrud.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,36 +17,34 @@ public class MyController {
     private StudentServiceImpl studentService;
 
     @PostMapping
-    public String addStudent(@RequestBody Student student)
+    public ResponseEntity<String> addStudent(@RequestBody Student student)
     {
         studentService.addStudent(student);
-        return "Student Added Successfully!";
+        return new ResponseEntity<String>("Student Added Successfully!",HttpStatus.CREATED);
     }
 
     @GetMapping("{rollno}")
-    public Student getStudent(@PathVariable("rollno") Integer rollno)
+    public ResponseEntity<Student> getStudent(@PathVariable("rollno") Integer rollno)
     {
-        return studentService.getStudent(rollno);
+        return new ResponseEntity<>(studentService.getStudent(rollno), HttpStatus.FOUND);
     }
 
     @GetMapping
-    public List<Student> getAllStudents()
+    public ResponseEntity<List<Student>> getAllStudents()
     {
-        return studentService.getAllStudents();
+        return new ResponseEntity<>(studentService.getAllStudents(), HttpStatus.FOUND);
     }
-
     @PutMapping
-    public String updateStudent(@RequestBody Student student)
+    public ResponseEntity<String> updateStudent(@RequestBody Student student)
     {
         studentService.updateStudent(student);
-        return "Student Updated Successfully!";
+        return new ResponseEntity<>("Student Detail Updated Successfully!", HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{rollNo}")
-    public String deleteStudent(@PathVariable("rollNo") int rollNo)
+    public ResponseEntity<String> deleteStudent(@PathVariable("rollNo") int rollNo)
     {
         studentService.deleteStudent(rollNo);
-        return "Student Delete Successfully!";
+        return new ResponseEntity<>("Student Deleted Successfully!", HttpStatus.OK);
     }
-
 }
