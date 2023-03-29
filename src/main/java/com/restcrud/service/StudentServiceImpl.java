@@ -41,6 +41,8 @@ public class StudentServiceImpl implements StudentService {
     }
     public String deleteStudent(int id)
     {
+        if(studentRepository.findById(id).isEmpty())
+            throw new StudentNotFoundException("Student with Rollno : '"+id+"' not found!");
         studentRepository.deleteById(id);
         return "Student Deleted Successfully!";
     }

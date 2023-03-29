@@ -2,6 +2,7 @@ package com.restcrud.controller;
 
 import com.restcrud.model.Student;
 import com.restcrud.service.StudentServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class MyController {
     private StudentServiceImpl studentService;
 
     @PostMapping
-    public ResponseEntity<String> addStudent(@RequestBody Student student)
+    public ResponseEntity<String> addStudent(@Valid @RequestBody Student student)
     {
         studentService.addStudent(student);
         return new ResponseEntity<String>("Student Added Successfully!",HttpStatus.CREATED);
